@@ -1,0 +1,39 @@
+name: CI
+
+on: push
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: |
+          if [ -f requirements.txt ]; then
+            python -m pip install -r requirements.txt
+          else
+            echo "Skipping dependency installation: requirements.txt does not exist yet."
+          fi
+
+      - name: Run tests
+        run: |
+          if [ -d tests ]; then
+            python -m pytest
+          else
+            echo "Skipping tests: tests/ does not exist yet."
+          fi
+
+      - name: Build Docker image
+        run: |
+          if [ -f Dockerfile ]; then
+            docker build .
+          else
+            echo "Skipping Docker build: Dockerfile does not exist yet."
+          fi
