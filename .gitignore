@@ -1,5 +1,6 @@
 .env
 brief.txt
+plan_prompt.txt
 venv/
 __pycache__/
 *.pyc
