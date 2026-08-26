@@ -1,9 +1,5 @@
-.env
-brief.txt
-plan_prompt.txt
-venv/
+audit/
+logs/
+.pytest_cache/
 __pycache__/
 *.pyc
-.pytest_cache/
-node_modules/
-.DS_Store

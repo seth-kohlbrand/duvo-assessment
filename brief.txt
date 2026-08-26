@@ -1,0 +1,45 @@
+Steps should be implemented in order. Make sure they are implemented in order, always. 
+For the instructions that have notes, make sure you write to a Markdown file how you satisfied these specific instructions. 
+Never expose API keys. They should be secrets that are passed in. 
+Next, I will paste all the instructions. I want you to build checkpoints into the plan, into the build process, where I can manually verify specifics and go through a quick checklist of whether things were properly built through these steps at these checkpoints. 
+Let's start with building out step one. 
+# Remote task
+
+**Instructions:**
+
+- Follow the steps below and implement the task at hand. The steps are laid out as logical extensions and should be implemented in order.
+- Your goal is to ship a small but real piece of customer-deployable infrastructure. You could easily spend enormous amount of time on each step, so make sure that you use your time wisely. At each step, identify the core problem, solve it, and move on.
+- We want you to make tradeoffs between completeness, polish and architecture in order to deliver the best overall result.
+- You are free to use the language and framework of your choice. Please simulate how you'd actually solve this in your job.
+- Note: this server is going to run inside a customer's network, not on a public PaaS. Plan accordingly.
+
+**Goal:**
+
+We're going to ship a custom MCP server to a Duvo customer.
+
+**Context:**
+
+Korral is a European specialty grocery chain — ~180 stores, ~18,000 active SKUs. They run a homegrown store-ordering and stock-tracking tool called **StoreLink**. Korral's category buyers spend hours every day in StoreLink doing detective work — checking on-hand vs. POS, deciding whether a store is going to be empty by afternoon, raising replenishment orders. Duvo has just signed a pilot to put an agent on top of this workflow.
+
+Your job is to build the MCP server that lets a Duvo agent talk to StoreLink, and to plan how Duvo will deploy and operate it inside Korral's environment.
+
+**StoreLink API (excerpt):**
+
+```
+GET   /v1/stores                                       List stores
+GET   /v1/stores/{store_id}                            Store details
+GET   /v1/stores/{store_id}/inventory?sku={sku}        Current on-hand for a SKU
+GET   /v1/stores/{store_id}/pos?sku={sku}&since=...    Recent POS transactions for a SKU
+POST  /v1/stores/{store_id}/replenishment              Raise a replenishment order
+GET   /v1/stores/{store_id}/replenishment/{order_id}   Order status
+GET   /v1/skus/{sku}                                   SKU details (name, category, supplier)
+GET   /v1/suppliers/{supplier_id}                      Supplier details (incl. lead time)
+```
+
+Auth: `X-Korral-Store-Key: <key>` header, sent on every request. Each key is scoped to a single store and rotated weekly by Korral's IT.
+
+- Step 1
+    
+    **The basics**
+    
+    Build an MCP server that exposes the minimum set of tools a Duvo agent needs to do a buyer's job. Stubbing the StoreLink calls is fine — the integration plumbing isn't what we're testing. What we're testing is the agent-facing surface: which tools you expose, what you choose *not* to expose, what shapes you return, and how you name things. List your decisions briefly in the README.

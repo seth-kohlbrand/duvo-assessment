@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "storelink-buyer-mcp"
+version = "0.1.0"
+description = "A small, buyer-focused MCP facade for StoreLink"
+requires-python = ">=3.10"
+dependencies = ["fastmcp>=2.12,<3"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<9", "pytest-asyncio>=0.24,<2"]
+
+[project.scripts]
+storelink-buyer-mcp = "storelink_buyer_mcp.server:main"
+storelink-buyer-demo = "storelink_buyer_mcp.demo:main"
+storelink-buyer-smoke = "storelink_buyer_mcp.smoke:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/storelink_buyer_mcp"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = [
+    "container: exercises the built Docker image; needs docker on the host",
+]

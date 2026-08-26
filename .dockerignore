@@ -1,0 +1,13 @@
+.git
+.gitignore
+.pytest_cache
+__pycache__
+*.pyc
+.venv
+audit
+logs
+tests
+docs
+scripts
+brief.txt
+plan_prompt.txt

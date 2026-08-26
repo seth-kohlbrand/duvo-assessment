@@ -1,0 +1,2 @@
+"""StoreLink buyer MCP server."""
+
