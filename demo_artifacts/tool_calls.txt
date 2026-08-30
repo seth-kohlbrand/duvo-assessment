@@ -1,0 +1,4 @@
+ToolSearch {"query":"storelink inventory replenish store","max_results":10}
+ToolSearch {"query":"+storelink stock levels sku sales","max_results":10}
+mcp__storelink__replenish_store_stock {"sku":"8847291","store_ids":[47,102],"idempotency_key":"agent-demo-20260830-192359"}
+mcp__storelink__replenish_store_stock {"sku":"8847291","store_ids":[47,102],"idempotency_key":"agent-demo-20260830-192359"}

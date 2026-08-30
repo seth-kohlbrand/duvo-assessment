@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "storelink": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "-e", "STORELINK_AUDIT_DIR=/audit",
+        "-v", "/Users/sethkohlbrand/duvo_assessment/audit:/audit",
+        "storelink-buyer-mcp:exercise"
+      ]
+    }
+  }
+}

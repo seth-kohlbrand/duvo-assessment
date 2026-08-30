@@ -38,6 +38,27 @@ If StoreLink rejects a key while a request is in flight, the client assumes a ro
 
 If an agent requests a store for which the server has no credential, validation fails before any StoreLink read or write. The agent receives the unavailable store ID and the IDs this server can access, but never a credential value. The buyer audit records a failed action with zero orders and directs the buyer to Korral IT; the technical trace records the same failure under its `operation_id`.
 
+## Connect the server to an agent
+
+The runnable demo is `scripts/agent_demo.sh`. It builds the server image,
+generates an MCP config for your checkout, and drives a real agent
+(Claude Code in headless mode) over stdio MCP through the pilot buyer
+task — no bespoke driver script, the agent picks the tools itself:
+
+```bash
+scripts/agent_demo.sh
+```
+
+The agent discovers exactly the six tools and, given the pilot buyer task
+for SKU 8847291 at stores 47 and 102, replenishes store 47 (gap 9 > 6,
+order R47-0001 for 9 units), leaves store 102 alone (gap 4), and its
+retry with the same idempotency key is deduplicated with zero extra
+writes. The captured transcript, tool calls, and final answer land in
+`demo_artifacts/`; `docs/AGENT_DEMO.md` walks through a captured run.
+Requires `docker`, the `claude` CLI, and `jq`. The generated config block
+(`demo_artifacts/mcp-config.json`, mirrored at `mcp-config.json` in the
+repo root) works for any MCP client that speaks stdio.
+
 ## Run the buyer-request demo
 
 After building the image, this prints every MCP step and its structured JSON output:
