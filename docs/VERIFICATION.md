@@ -27,7 +27,7 @@ Result: FastMCP started `StoreLink Category Buyer` with the stdio transport and 
 Command executed:
 
 ```bash
-docker run --rm --entrypoint sh -v "$PWD:/workspace:ro" -w /workspace storelink-buyer-mcp:exercise -c "pip install -q 'pytest>=8,<9' 'pytest-asyncio>=0.24,<2' && PYTHONPATH=src pytest -q"
+docker run --rm --entrypoint sh -v "$PWD:/workspace:ro" -w /workspace storelink-buyer-mcp:exercise -c "pip install -q 'pytest>=8,<9' 'pytest-asyncio>=0.24,<2' && PYTHONPATH=src python -m pytest -q"
 ```
 
 Result: `21 passed`.

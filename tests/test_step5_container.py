@@ -56,7 +56,7 @@ def test_s5_1_image_builds(built_image):
 def test_s5_2_full_suite_passes_inside_the_image(built_image):
     command = (
         "pip install -q 'pytest>=8,<9' 'pytest-asyncio>=0.24,<2' && "
-        "PYTHONPATH=src pytest -q -m 'not container' -p no:cacheprovider"
+        "PYTHONPATH=src python -m pytest -q -m 'not container' -p no:cacheprovider"
     )
     result = subprocess.run(
         ["docker", "run", "--rm", "--entrypoint", "sh",

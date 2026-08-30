@@ -78,7 +78,7 @@ docker build -q -t storelink-buyer-mcp:testplan .
 docker run --rm --entrypoint sh -v "$PWD:/workspace:ro" -w /workspace \
   storelink-buyer-mcp:testplan -c \
   "pip install -q 'pytest>=8,<9' 'pytest-asyncio>=0.24,<2' && \
-   PYTHONPATH=src pytest -q -m 'not container' -p no:cacheprovider"
+   PYTHONPATH=src python -m pytest -q -m 'not container' -p no:cacheprovider"
 # → 62 passed, 4 deselected
 
 python3 -m pytest tests/test_step5_container.py -q -m container

@@ -20,7 +20,7 @@ These commands were exercised with Docker:
 ```bash
 docker build -t storelink-buyer-mcp:exercise .
 docker run --rm -i storelink-buyer-mcp:exercise
-docker run --rm --entrypoint sh -v "$PWD:/workspace:ro" -w /workspace storelink-buyer-mcp:exercise -c "pip install -q 'pytest>=8,<9' 'pytest-asyncio>=0.24,<2' && PYTHONPATH=src pytest -q"
+docker run --rm --entrypoint sh -v "$PWD:/workspace:ro" -w /workspace storelink-buyer-mcp:exercise -c "pip install -q 'pytest>=8,<9' 'pytest-asyncio>=0.24,<2' && PYTHONPATH=src python -m pytest -q"
 ```
 
 The server requires Python 3.10 or newer and uses stdio, suitable for an MCP client configuration. No StoreLink secret is needed for the stub. A real client should read its rotatable credential from the environment at request time.
